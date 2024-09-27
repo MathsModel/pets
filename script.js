@@ -56,6 +56,12 @@ const petFactors = {
     }
 };
 
+function updateAllergiesLabel() {
+    const petType = document.getElementById('pet-type').value;
+    const allergiesLabel = document.getElementById('allergies-label');
+    allergiesLabel.textContent = `${petType.charAt(0).toUpperCase() + petType.slice(1)} allergies (any person):`;
+}
+
 function assessReadiness() {
     const petType = document.getElementById('pet-type').value;
     const inputs = {
@@ -65,7 +71,7 @@ function assessReadiness() {
         houseSize: parseInt(document.getElementById('house-size').value),
         caretakerAge: parseInt(document.getElementById('caretaker-age').value),
         healthStatus: parseFloat(document.getElementById('health-status').value),
-        allergies: document.getElementById('allergies').value,
+        allergies: document.querySelector('input[name="allergies"]:checked').value,
         otherPets: parseInt(document.getElementById('other-pets').value),
         vetDistance: parseFloat(document.getElementById('vet-distance').value),
         caregivers: parseInt(document.getElementById('caregivers').value)
@@ -163,8 +169,8 @@ function assessReadiness() {
     probability *= healthFactor;
 
     // Allergies
-    let allergyFactor = inputs.allergies === petType ? petFactors[petType].allergies : 1;
-    decisions.push({name: inputs.allergies === petType ? "Has Allergies" : "No Allergies", probability: probability * allergyFactor});
+    let allergyFactor = inputs.allergies === 'yes' ? petFactors[petType].allergies : 1;
+    decisions.push({name: inputs.allergies === 'yes' ? "Has Allergies" : "No Allergies", probability: probability * allergyFactor});
     probability *= allergyFactor;
 
     // Other Pets
@@ -257,7 +263,7 @@ function visualizeTree(decisions) {
         .parentId((d, i) => i > 0 ? i - 1 : null)
         (decisions);
 
-    // Create tree layout
+// Create tree layout
     const treeLayout = d3.tree().size([width, height - 100]);
     const treeData = treeLayout(root);
 
@@ -291,10 +297,14 @@ function visualizeTree(decisions) {
         .attr("stroke", "white");
 }
 
-// Check if D3 is loaded
+// Initialize the page
 window.onload = function() {
+    updateAllergiesLabel();
     if (typeof d3 === 'undefined') {
         console.error("D3 library is not loaded. Please check your internet connection and try again.");
         alert("There was an error loading the visualization library. Please check your internet connection and try again.");
     }
 };
+
+// Add event listener to pet type dropdown
+document.getElementById('pet-type').addEventListener('change', updateAllergiesLabel);
