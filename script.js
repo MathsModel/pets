@@ -17,7 +17,7 @@ const petFactors = {
         caretakerAge: [0.4, 0.4, 1, 0.95, 0.9],
         healthStatus: [0.4, 0.6, 0.85, 1],
         allergies: 0.4,
-        otherPets: [1, 1, 0.95, 0.85],
+        otherPets: [1, 0.95, 0.95, 0.85],
         vetDistance: [1, 0.9, 0.8, 0.7, 0.4],
         caregivers: [0.6, 0.85, 1]
     },
