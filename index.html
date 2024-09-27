@@ -12,7 +12,7 @@
     <div id="input-form">
         <div class="input-group">
             <label for="pet-type">Select Pet Type:</label>
-            <select id="pet-type">
+            <select id="pet-type" onchange="updateAllergiesLabel()">
                 <option value="cat">Cat</option>
                 <option value="dog">Dog</option>
                 <option value="bird">Bird</option>
@@ -45,15 +45,13 @@
             <input type="number" id="health-status" min="1" max="10" step="0.1" value="8">
         </div>
         <div class="input-group">
-            <label for="allergies">Allergies (any person):</label>
-            <select id="allergies">
-                <option value="none">None</option>
-                <option value="cat">Cat</option>
-                <option value="dog">Dog</option>
-                <option value="bird">Bird</option>
-                <option value="fish">Fish</option>
-                <option value="hamster">Hamster</option>
-            </select>
+            <label id="allergies-label">Cat allergies (any person):</label>
+            <div class="radio-group">
+                <input type="radio" id="allergies-yes" name="allergies" value="yes">
+                <label for="allergies-yes">Yes</label>
+                <input type="radio" id="allergies-no" name="allergies" value="no" checked>
+                <label for="allergies-no">No</label>
+            </div>
         </div>
         <div class="input-group">
             <label for="other-pets">Number of other pets in household:</label>
